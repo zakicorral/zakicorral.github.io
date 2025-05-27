@@ -2,15 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Tiny Platformer for You 💖</title>
+  <title>Mini Platformer for You 💖</title>
   <style>
-    body { margin: 0; background: #ffe6f0; }
-    #game-container { margin: auto; width: 800px; height: 450px; }
+    body {
+      margin: 0;
+      background: #fff0f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+    #game-container {
+      width: 800px;
+      height: 450px;
+      border: 5px solid #d6336c;
+      background: #ffe6f0;
+      box-shadow: 0 0 15px #d6336caa;
+    }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
 </head>
 <body>
   <div id="game-container"></div>
+
   <script>
     const config = {
       type: Phaser.AUTO,
@@ -19,7 +34,10 @@
       parent: 'game-container',
       physics: {
         default: 'arcade',
-        arcade: { gravity: { y: 600 }, debug: false }
+        arcade: {
+          gravity: { y: 700 },
+          debug: false
+        }
       },
       scene: {
         preload,
@@ -28,17 +46,17 @@
       }
     };
 
-    const game = new Phaser.Game(config);
-
     let player;
     let platforms;
     let cursors;
     let goal;
     let reachedGoal = false;
 
+    const game = new Phaser.Game(config);
+
     function preload() {
-      this.load.image('ground', 'https://i.imgur.com/3c1R9C3.png');
-      this.load.image('heart', 'https://i.imgur.com/Wb1qfhK.png');
+      this.load.image('ground', 'https://i.imgur.com/3c1R9C3.png'); // platform image
+      this.load.image('heart', 'https://i.imgur.com/Wb1qfhK.png');  // goal heart
       this.load.spritesheet('dude',
         'https://labs.phaser.io/assets/sprites/dude.png',
         { frameWidth: 32, frameHeight: 48 }
@@ -46,18 +64,24 @@
     }
 
     function create() {
-      this.add.text(20, 20, 'Reach the ❤️ to win!', { fontSize: '24px', fill: '#d6336c' });
+      // Instruction text
+      this.add.text(20, 20, 'Use arrow keys to move and jump. Reach the ❤️!', { fontSize: '24px', fill: '#d6336c' });
 
+      // Platforms group, static so player can stand on them
       platforms = this.physics.add.staticGroup();
+
+      // Ground platform - scale it wider and refresh physics body
       platforms.create(400, 440, 'ground').setScale(2).refreshBody();
       platforms.create(600, 320, 'ground');
       platforms.create(50, 250, 'ground');
       platforms.create(750, 220, 'ground');
 
+      // Player sprite and physics setup
       player = this.physics.add.sprite(100, 400, 'dude');
       player.setBounce(0.2);
       player.setCollideWorldBounds(true);
 
+      // Animations for player
       this.anims.create({
         key: 'left',
         frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
@@ -78,11 +102,16 @@
         repeat: -1
       });
 
+      // Collide player with platforms
       this.physics.add.collider(player, platforms);
 
+      // Keyboard cursors input
       cursors = this.input.keyboard.createCursorKeys();
 
+      // The goal heart to reach
       goal = this.physics.add.staticImage(750, 170, 'heart');
+
+      // Overlap detection between player and goal
       this.physics.add.overlap(player, goal, reachGoal, null, this);
     }
 
@@ -101,13 +130,13 @@
       }
 
       if (cursors.up.isDown && player.body.touching.down) {
-        player.setVelocityY(-400);
+        player.setVelocityY(-430);
       }
     }
 
     function reachGoal() {
       reachedGoal = true;
-      this.add.text(300, 200, 'You reached my heart! 🥰', { fontSize: '32px', fill: '#d6336c' });
+      this.add.text(250, 200, 'You reached my heart! 🥰', { fontSize: '32px', fill: '#d6336c' });
       this.physics.pause();
     }
   </script>
