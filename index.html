@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Just for You 💖</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 50px; background: #fff0f5; }
+    h1 { color: #d6336c; }
+    button { padding: 10px 20px; font-size: 18px; margin-top: 20px; cursor: pointer; }
+    input { padding: 10px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Guess the Secret Word!</h1>
+  <p>I made this little game just for you ❤️</p>
+  <input id="guess" type="text" placeholder="Type your guess here" />
+  <button onclick="checkGuess()">Submit</button>
+  <p id="result"></p>
+
+  <script>
+    const secret = "love"; // You can change this!
+    function checkGuess() {
+      const guess = document.getElementById("guess").value.toLowerCase();
+      const result = document.getElementById("result");
+      if (guess === secret) {
+        result.textContent = "You got it right! 🥰";
+      } else {
+        result.textContent = "Try again, my love 💫";
+      }
+    }
+  </script>
+</body>
+</html>
