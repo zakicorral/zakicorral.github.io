@@ -1,22 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Just for You 💖</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 50px; background: #fff0f5; }
-    h1 { color: #d6336c; }
-    button {
-      padding: 10px 20px;
-      font-size: 18px;
-      margin: 10px 10px 0 10px;
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #fff0f5;
+    }
+    h1 {
+      color: #d6336c;
+    }
+    #guess {
+      font-size: 24px;
+      padding: 10px;
+      width: 300px;
+      vertical-align: middle;
+      box-sizing: border-box;
+    }
+    #submitBtn {
+      font-size: 20px;
+      padding: 10px 25px;
+      margin-left: 10px;
+      vertical-align: middle;
       cursor: pointer;
     }
-    #hintMessage {
+    #hintBtn {
+      font-size: 18px;
+      padding: 10px 25px;
       margin-top: 20px;
+      cursor: pointer;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #d6336c;
+    }
+    #hintMessage {
+      margin-top: 15px;
       color: #d6336c;
       font-style: italic;
-      font-size: 16px;
+      font-size: 18px;
       min-height: 24px;
     }
   </style>
@@ -24,10 +53,11 @@
 <body>
   <h1>Guess the Secret Word!</h1>
   <p>I made this little game just for you ❤️</p>
-  <input id="guess" type="text" placeholder="Type your guess here" />
-  <br />
-  <button onclick="checkGuess()">Submit</button>
-  <button onclick="showHint()">Hint</button>
+  <div>
+    <input id="guess" type="text" placeholder="Type your guess here" />
+    <button id="submitBtn" onclick="checkGuess()">Submit</button>
+  </div>
+  <button id="hintBtn" onclick="showHint()">Hint</button>
   <p id="result"></p>
   <p id="hintMessage"></p>
 
