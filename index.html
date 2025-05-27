@@ -4,14 +4,24 @@
   <meta charset="UTF-8" />
   <title>Just for You 💖</title>
   <style>
-    body {
+    html, body {
+      height: 100%;
+      margin: 0;
       font-family: sans-serif;
+    }
+    body {
       text-align: center;
       padding: 50px;
-      background: #fff0f5;
+      /* Background image with dark overlay */
+      background: 
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('IMG_0069.JPG') no-repeat center center fixed;
+      background-size: cover;
+      color: #d6336c;
     }
     h1 {
-      color: #d6336c;
+      color: #ffb3d9; /* lighter so it stands out */
+      text-shadow: 0 0 5px black;
     }
     #guess {
       font-size: 24px;
@@ -19,6 +29,9 @@
       width: 300px;
       vertical-align: middle;
       box-sizing: border-box;
+      border-radius: 5px;
+      border: 2px solid #d6336c;
+      outline: none;
     }
     #submitBtn {
       font-size: 20px;
@@ -26,6 +39,14 @@
       margin-left: 10px;
       vertical-align: middle;
       cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      background-color: #d6336c;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+    #submitBtn:hover {
+      background-color: #a8294e;
     }
     #hintBtn {
       font-size: 18px;
@@ -35,18 +56,28 @@
       display: block;
       margin-left: auto;
       margin-right: auto;
+      border-radius: 5px;
+      border: none;
+      background-color: #ffb3d9;
+      color: #6b0036;
+      transition: background-color 0.3s ease;
+    }
+    #hintBtn:hover {
+      background-color: #ff99cc;
     }
     #result {
       margin-top: 20px;
       font-size: 20px;
-      color: #d6336c;
+      color: #ffb3d9;
+      text-shadow: 0 0 5px black;
     }
     #hintMessage {
       margin-top: 15px;
-      color: #d6336c;
+      color: #ffb3d9;
       font-style: italic;
       font-size: 18px;
       min-height: 24px;
+      text-shadow: 0 0 5px black;
     }
   </style>
 </head>
