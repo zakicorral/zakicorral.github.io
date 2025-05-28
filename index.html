@@ -4,165 +4,117 @@
   <meta charset="UTF-8" />
   <title>Just for You 💖</title>
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap">
   <style>
     html, body {
       height: 100%;
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #000;
-      background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
-        url('Brown Collage Personal Scrapbook All About Me Poster.png');
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-attachment: fixed;
+      font-family: 'Quicksand', sans-serif;
+      background: black;
       color: #ffb3d9;
       overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      background: url('Brown Collage Personal Scrapbook All About Me Poster.png') center/cover no-repeat fixed;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      opacity: 0.5;
+      z-index: -1;
     }
 
     #passwordOverlay {
       position: fixed;
       top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       background: rgba(0, 0, 0, 0.9);
-      color: white;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
-      text-align: center;
+      z-index: 1000;
+      animation: fadeIn 1s ease;
     }
 
     #passwordOverlay input, #passwordOverlay button {
       font-size: 18px;
-      padding: 12px;
-      margin: 12px;
-      border-radius: 5px;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 8px;
       border: none;
     }
 
-    #passwordOverlay input {
-      width: 250px;
-      text-align: center;
-    }
-
     #passwordOverlay button {
-      background-color: #ff69b4;
+      background: #ff69b4;
       color: white;
       cursor: pointer;
       transition: background 0.3s;
     }
 
     #passwordOverlay button:hover {
-      background-color: #ff1493;
+      background: #e055a2;
     }
 
-    #mainMenu {
+    .hidden {
       display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-      animation: fadeIn 1s ease-in-out;
     }
 
-    .menu-btn {
-      font-size: 20px;
-      padding: 12px 25px;
-      margin: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      background: #ffb3d9;
-      color: #6b0036;
-      transition: transform 0.3s;
-    }
-
-    .menu-btn:hover {
-      transform: scale(1.1);
-    }
-
-    #gameContent, #memoryGame {
+    .screen {
       display: none;
       padding: 30px;
-      max-width: 800px;
-      margin: auto;
       text-align: center;
-      animation: fadeIn 1s ease-in-out;
+      animation: fadeIn 0.5s ease;
+    }
+
+    #menuScreen button, #gameScreen button, #memoryScreen button {
+      font-size: 18px;
+      padding: 12px 20px;
+      margin: 10px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    #menuScreen button:hover {
+      transform: scale(1.05);
     }
 
     #guess {
-      font-size: 24px;
+      font-size: 20px;
       padding: 10px;
       width: 300px;
       border-radius: 5px;
       border: 2px solid #d6336c;
       outline: none;
+    }
+
+    .popMessage {
+      animation: pop 0.4s ease;
+    }
+
+    #memoryStars {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
       margin-top: 20px;
-    }
-
-    #submitBtn, #hintBtn, #backBtn {
-      font-size: 18px;
-      padding: 10px 25px;
-      margin: 15px auto;
-      border-radius: 5px;
-      border: none;
-      cursor: pointer;
-    }
-
-    #submitBtn {
-      background-color: #d6336c;
-      color: white;
-    }
-
-    #submitBtn:hover {
-      background-color: #a8294e;
-    }
-
-    #hintBtn {
-      background-color: #ffb3d9;
-      color: #6b0036;
-    }
-
-    #hintBtn:hover {
-      background-color: #ff99cc;
-    }
-
-    #starsContainer {
-      position: relative;
-      height: 300px;
-      width: 100%;
     }
 
     .star {
       font-size: 40px;
       background: transparent;
       border: none;
-      color: gold;
       cursor: pointer;
+      color: gold;
       position: absolute;
-      animation: floatStar 4s ease-in-out infinite;
-    }
-
-    @keyframes floatStar {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      animation: floatStar 8s infinite linear;
     }
 
     @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-
-    .celebrate {
-      animation: pop 0.6s ease-in-out;
+      from { opacity: 0; } to { opacity: 1; }
     }
 
     @keyframes pop {
@@ -170,138 +122,179 @@
       50% { transform: scale(1.3); }
       100% { transform: scale(1); }
     }
+
+    @keyframes floatStar {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    #result, #hintMessage, #memoryText {
+      margin-top: 20px;
+      font-size: 20px;
+      text-shadow: 0 0 5px black;
+    }
   </style>
 </head>
 <body>
-  <div id="passwordOverlay">
-    <h2>Enter the Secret Password 💌</h2>
-    <input type="password" id="passwordInput" placeholder="Password..." />
-    <button onclick="checkPassword()">Enter</button>
-  </div>
 
-  <div id="mainMenu">
-    <h1>Welcome My Love 💖</h1>
-    <button class="menu-btn" onclick="startGame()">💌 Guess the Word</button>
-    <button class="menu-btn" onclick="showMemoryGame()">🌟 Memory Stars</button>
-    <button class="menu-btn">🎵 Music Surprise</button>
-    <button class="menu-btn">📸 Hidden Gallery</button>
-    <button class="menu-btn">💬 AI Confession</button>
-    <button class="menu-btn">🎁 Secret Gift</button>
-  </div>
+<div id="passwordOverlay">
+  <h2>Enter the secret password 💌</h2>
+  <input type="password" id="passwordInput" placeholder="Password..." />
+  <button onclick="checkPassword()">Enter</button>
+</div>
 
-  <div id="gameContent">
-    <h1>Guess the Secret Word!</h1>
-    <input id="guess" type="text" placeholder="Type your guess here" />
-    <button id="submitBtn" onclick="checkGuess()">Submit</button>
-    <button id="hintBtn" onclick="showHint()">Hint</button>
-    <p id="result"></p>
-    <p id="hintMessage"></p>
-  </div>
+<!-- MENU SCREEN -->
+<div id="menuScreen" class="screen">
+  <h1>Choose a Surprise 💝</h1>
+  <button onclick="startGame()">💬 Word Guess</button>
+  <button onclick="startMemory()">✨ Memory Stars</button>
+  <button disabled>🎵 Love Song</button>
+  <button disabled>🧠 AI Confession</button>
+  <button disabled>🎨 Sketchpad</button>
+  <button disabled>📸 Moments</button>
+  <button disabled>🎁 Gift Code</button>
+</div>
 
-  <div id="memoryGame">
-    <h1>Click a Star to Reveal a Memory ✨</h1>
-    <div id="starsContainer"></div>
-    <p id="memoryText"></p>
-    <button id="backBtn" onclick="backToMenu()">Back to Menu ❤️</button>
-  </div>
+<!-- GUESSING GAME -->
+<div id="gameScreen" class="screen">
+  <h1>Guess the Secret Word!</h1>
+  <input id="guess" type="text" placeholder="Your guess..." />
+  <button onclick="checkGuess()">Submit</button>
+  <button onclick="showHint()">Hint</button>
+  <button onclick="backToMenu()">🔙 Back</button>
+  <p id="result"></p>
+  <p id="hintMessage"></p>
+</div>
 
-  <audio id="successSound">
-    <source src="323703__reitanna__funny-yay.wav" type="audio/wav" />
-  </audio>
-  <audio id="failSound">
-    <source src="dissapointed sounds.wav" type="audio/wav" />
-  </audio>
+<!-- MEMORY GAME -->
+<div id="memoryScreen" class="screen">
+  <h1>Click a Star to Reveal a Memory ✨</h1>
+  <div id="memoryStars"></div>
+  <p id="memoryText"></p>
+  <button onclick="backToMenu()">🔙 Back</button>
+</div>
 
-  <script>
-    const password = "ghofrane";
-    const secret = "love";
+<!-- Sounds -->
+<audio id="successSound">
+  <source src="323703__reitanna__funny-yay.wav" type="audio/wav" />
+</audio>
+<audio id="failSound">
+  <source src="dissapointed sounds.wav" type="audio/wav" />
+</audio>
+
+<script>
+  const password = "ghofrane";
+
+  const words = [
+    { word: "love", hints: ["It lives in the heart", "4 letters only"] },
+    { word: "smile", hints: ["You give it to me", "Happens on your face"] },
+    { word: "forever", hints: ["I want to be with you...", "...this long"] },
+    { word: "hug", hints: ["Arms around me", "Warm and comforting"] },
+    { word: "kiss", hints: ["Soft and sweet", "On the lips"] },
+    { word: "moon", hints: ["We watched it together", "It lights the night"] },
+    { word: "stars", hints: ["In the sky", "You're one of them"] },
+    { word: "hope", hints: ["What you give me", "Rhymes with 'rope'"] },
+    { word: "trust", hints: ["Foundation of us", "It's earned"] },
+    { word: "laugh", hints: ["You make me do this", "Sounds joyful"] },
+    { word: "heart", hints: ["You stole mine", "It beats for you"] },
+    { word: "time", hints: ["What I want more with you", "It ticks"] },
+    { word: "dream", hints: ["You're in all of them", "Happens in sleep"] },
+    { word: "touch", hints: ["Tingles when it's you", "Skin to skin"] },
+    { word: "date", hints: ["Our time together", "Romantic outing"] },
+    { word: "rose", hints: ["A flower for you", "Often red"] },
+    { word: "gift", hints: ["This whole thing is one", "Surprise!"] },
+    { word: "magic", hints: ["What I feel with you", "Not science"] },
+    { word: "vibe", hints: ["It's always good with you", "Starts with V"] },
+    { word: "you", hints: ["The answer to everything", "Three letters"] }
+  ];
+
+  let currentWord = {};
+  let currentHint = 0;
+
+  function checkPassword() {
+    const input = document.getElementById("passwordInput").value.toLowerCase();
+    if (input === password) {
+      document.getElementById("passwordOverlay").style.display = "none";
+      document.getElementById("menuScreen").style.display = "block";
+    } else {
+      alert("Oops! Wrong password 💔");
+    }
+  }
+
+  function startGame() {
+    currentWord = words[Math.floor(Math.random() * words.length)];
+    currentHint = 0;
+    document.getElementById("guess").value = "";
+    document.getElementById("result").textContent = "";
+    document.getElementById("hintMessage").textContent = "";
+    showScreen("gameScreen");
+  }
+
+  function checkGuess() {
+    const input = document.getElementById("guess").value.toLowerCase();
+    const result = document.getElementById("result");
+
+    if (input === currentWord.word) {
+      result.textContent = "Correct! 🥰";
+      result.classList.add("popMessage");
+      document.getElementById("successSound").play();
+    } else {
+      result.textContent = "Try again 💫";
+      result.classList.add("popMessage");
+      document.getElementById("failSound").play();
+    }
+
+    setTimeout(() => result.classList.remove("popMessage"), 500);
+  }
+
+  function showHint() {
+    const hint = currentWord.hints[currentHint % currentWord.hints.length];
+    const hintMsg = document.getElementById("hintMessage");
+    hintMsg.textContent = "Hint: " + hint;
+    hintMsg.classList.add("popMessage");
+    currentHint++;
+    setTimeout(() => hintMsg.classList.remove("popMessage"), 500);
+  }
+
+  function startMemory() {
+    showScreen("memoryScreen");
+    const memoryContainer = document.getElementById("memoryStars");
+    const memoryText = document.getElementById("memoryText");
+    memoryContainer.innerHTML = "";
+    memoryText.textContent = "";
 
     const memories = [
-      "Our first smile together 😊",
-      "That long chat under the stars 🌌",
-      "When you held my hand and it felt like home 🤝",
-      "That random moment you made me laugh until I cried 😂",
-      "The first time I realized I'm truly in love with you 💘",
-      "Our silly jokes only we understand 🤪",
-      "Looking at the moon and thinking of you 🌙",
-      "Our unforgettable walk together 🚶‍♀️🚶‍♂️",
-      "You calling me your soulmate 🥺",
-      "You being you. And that was more than enough ❤️"
+      "Our first smile 😊", "Stargazing night 🌌", "Your silly jokes 😂",
+      "The best hug ever 🤗", "That late night call 📞", "When we danced 💃",
+      "Holding hands under the rain 🌧️", "Your surprise message 💌",
+      "When I saw your face the first time 🥺", "Every 'I love you' 💖"
     ];
 
-    function checkPassword() {
-      const input = document.getElementById("passwordInput").value.toLowerCase();
-      if (input === password) {
-        document.getElementById("passwordOverlay").style.display = "none";
-        document.getElementById("mainMenu").style.display = "flex";
-      } else {
-        alert("Oops! That's not the right password 💔");
-      }
+    for (let i = 0; i < 10; i++) {
+      const btn = document.createElement("button");
+      btn.textContent = "⭐";
+      btn.className = "star";
+      btn.style.top = `${Math.random() * 80 + 10}%`;
+      btn.style.left = `${Math.random() * 90 + 5}%`;
+      btn.onclick = () => {
+        memoryText.textContent = memories[i];
+        memoryText.classList.add("popMessage");
+        setTimeout(() => memoryText.classList.remove("popMessage"), 500);
+      };
+      memoryContainer.appendChild(btn);
     }
+  }
 
-    function startGame() {
-      document.getElementById("mainMenu").style.display = "none";
-      document.getElementById("gameContent").style.display = "block";
-    }
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.style.display = "none");
+    document.getElementById(id).style.display = "block";
+  }
 
-    function checkGuess() {
-      const guess = document.getElementById("guess").value.toLowerCase();
-      const result = document.getElementById("result");
-      const hintMessage = document.getElementById("hintMessage");
-      const successSound = document.getElementById("successSound");
-      const failSound = document.getElementById("failSound");
-      hintMessage.textContent = "";
-
-      if (guess === secret) {
-        result.textContent = "You got it right! 🥰";
-        result.classList.add("celebrate");
-
-        successSound.volume = 1.0;
-        successSound.currentTime = 0;
-        successSound.play();
-
-        setTimeout(() => {
-          result.classList.remove("celebrate");
-          showMemoryGame();
-        }, 2000);
-      } else {
-        result.textContent = "Try again, my love 💫";
-        failSound.volume = 1.0;
-        failSound.currentTime = 0;
-        failSound.play();
-      }
-    }
-
-    function showHint() {
-      document.getElementById("hintMessage").textContent = "Hint: It's something that comes from the heart ❤️";
-    }
-
-    function showMemoryGame() {
-      document.getElementById("gameContent").style.display = "none";
-      document.getElementById("mainMenu").style.display = "none";
-      document.getElementById("memoryGame").style.display = "block";
-      const starsContainer = document.getElementById("starsContainer");
-      starsContainer.innerHTML = "";
-
-      for (let i = 0; i < memories.length; i++) {
-        const star = document.createElement("button");
-        star.textContent = "⭐";
-        star.classList.add("star");
-        star.style.top = Math.random() * 250 + "px";
-        star.style.left = Math.random() * 90 + "%";
-        star.onclick = () => revealMemory(memories[i]);
-        starsContainer.appendChild(star);
-      }
-    }
-
-    function revealMemory(text) {
-      document.getElementById("memoryText").textContent = text;
-    }
-
-    function backToMenu() {
-      document.getElementById("memoryGame").style.display = "none";
-      document.getElementById("mainMenu").style.display = "flex";
-    }
-  </script>
+  function backToMenu() {
+    showScreen("menuScreen");
+  }
+</script>
 </body>
 </html>
+
