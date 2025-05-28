@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
   <meta charset="UTF-8" />
   <title>Just for You 💖</title>
   <style>
@@ -24,6 +24,14 @@
       overflow: auto;
     }
 
+    #passwordOverlay, #menuScreen, #gameContent, #memoryGame {
+      display: none;
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+    }
+
     #passwordOverlay {
       position: fixed;
       top: 0; left: 0;
@@ -38,7 +46,7 @@
       z-index: 9999;
     }
 
-    #passwordOverlay input, #passwordOverlay button {
+    input, button {
       font-size: 18px;
       padding: 10px;
       margin-top: 10px;
@@ -46,23 +54,32 @@
       border: none;
     }
 
-    #passwordOverlay button {
-      background-color: #ff69b4;
-      color: white;
+    button {
       cursor: pointer;
+    }
+
+    button.mainBtn {
+      background-color: #ffb3d9;
+      color: #6b0036;
+      margin: 15px;
+    }
+
+    button.mainBtn:hover {
+      background-color: #ff99cc;
+    }
+
+    #submitBtn, #backBtn {
+      background-color: #d6336c;
+      color: white;
+    }
+
+    #submitBtn:hover, #backBtn:hover {
+      background-color: #a8294e;
     }
 
     h1 {
       color: #ffb3d9;
       text-shadow: 0 0 5px black;
-    }
-
-    #gameContent, #memoryGame {
-      display: none;
-      padding: 30px;
-      max-width: 800px;
-      margin: auto;
-      text-align: center;
     }
 
     #guess {
@@ -73,40 +90,6 @@
       border: 2px solid #d6336c;
       outline: none;
       margin-top: 20px;
-    }
-
-    #submitBtn, #hintBtn, #memoryGameBtn, #backBtn {
-      font-size: 18px;
-      padding: 10px 25px;
-      margin: 15px auto;
-      border-radius: 5px;
-      border: none;
-      cursor: pointer;
-      display: block;
-    }
-
-    #submitBtn {
-      background-color: #d6336c;
-      color: white;
-    }
-
-    #submitBtn:hover {
-      background-color: #a8294e;
-    }
-
-    #hintBtn, #memoryGameBtn {
-      background-color: #ffb3d9;
-      color: #6b0036;
-    }
-
-    #hintBtn:hover, #memoryGameBtn:hover {
-      background-color: #ff99cc;
-    }
-
-    #result, #hintMessage, #memoryText {
-      margin-top: 20px;
-      font-size: 20px;
-      text-shadow: 0 0 5px black;
     }
 
     #starsContainer {
@@ -130,9 +113,10 @@
       transform: scale(1.2);
     }
 
-    #backBtn {
-      background-color: #d6336c;
-      color: white;
+    #result, #hintMessage, #memoryText {
+      margin-top: 20px;
+      font-size: 20px;
+      text-shadow: 0 0 5px black;
     }
 
     @keyframes pop {
@@ -155,16 +139,29 @@
     <button onclick="checkPassword()">Enter</button>
   </div>
 
+  <!-- Menu Interface -->
+  <div id="menuScreen">
+    <h1>Welcome, Beautiful 🌸</h1>
+    <p>Choose your surprise:</p>
+    <button class="mainBtn" onclick="startGuessingGame()">Guess the Word Game</button>
+    <button class="mainBtn" onclick="showMemoryGame()">Memory Stars Game</button>
+    <button class="mainBtn">Love Calculator (Coming Soon)</button>
+    <button class="mainBtn">Playlist from Zaki (Coming Soon)</button>
+    <button class="mainBtn">Surprise Letter (Coming Soon)</button>
+    <button class="mainBtn">Photo Collage (Coming Soon)</button>
+    <button class="mainBtn">Mystery Box (Coming Soon)</button>
+  </div>
+
   <!-- Game Content -->
   <div id="gameContent">
     <h1>Guess the Secret Word!</h1>
     <p>All the best luck from your love, Zaki :) ❤️</p>
     <input id="guess" type="text" placeholder="Type your guess here" />
     <button id="submitBtn" onclick="checkGuess()">Submit</button>
-    <button id="hintBtn" onclick="showHint()">Hint</button>
-    <button id="memoryGameBtn" onclick="showMemoryGame()">Play Memory Stars 🌟</button>
+    <button class="mainBtn" onclick="showHint()">Hint</button>
     <p id="result"></p>
     <p id="hintMessage"></p>
+    <button id="backBtn" onclick="backToMenu()">Back to Menu</button>
   </div>
 
   <!-- Memory Game -->
@@ -172,12 +169,15 @@
     <h1>Click a Star to Reveal a Memory ✨</h1>
     <div id="starsContainer"></div>
     <p id="memoryText"></p>
-    <button id="backBtn" onclick="backToGame()">Back to Game ❤️</button>
+    <button id="backBtn" onclick="backToMenu()">Back to Menu ❤️</button>
   </div>
 
-  <!-- Sound -->
+  <!-- Sounds -->
   <audio id="successSound" preload="auto">
     <source src="323703__reitanna__funny-yay.wav" type="audio/wav" />
+  </audio>
+  <audio id="failSound" preload="auto">
+    <source src="dissapointed sounds.wav" type="audio/wav" />
   </audio>
 
   <script>
@@ -196,44 +196,19 @@
       const input = document.getElementById("passwordInput").value.toLowerCase();
       if (input === password) {
         document.getElementById("passwordOverlay").style.display = "none";
-        document.getElementById("gameContent").style.display = "block";
+        document.getElementById("menuScreen").style.display = "block";
       } else {
         alert("Oops! That's not the right password 💔");
       }
     }
 
-    function checkGuess() {
-      const guess = document.getElementById("guess").value.toLowerCase();
-      const result = document.getElementById("result");
-      const hintMessage = document.getElementById("hintMessage");
-      const successSound = document.getElementById("successSound");
-      hintMessage.textContent = "";
-
-      if (guess === secret) {
-        result.textContent = "You got it right! 🥰";
-        result.classList.add("celebrate");
-
-        successSound.volume = 1.0;
-        successSound.currentTime = 0;
-        successSound.play().catch((e) => {
-          console.warn("Sound playback failed:", e);
-        });
-
-        setTimeout(() => {
-          result.classList.remove("celebrate");
-          showMemoryGame();
-        }, 2000);
-      } else {
-        result.textContent = "Try again, my love 💫";
-      }
-    }
-
-    function showHint() {
-      document.getElementById("hintMessage").textContent = "Hint: It's something that comes from the heart ❤️";
+    function startGuessingGame() {
+      document.getElementById("menuScreen").style.display = "none";
+      document.getElementById("gameContent").style.display = "block";
     }
 
     function showMemoryGame() {
-      document.getElementById("gameContent").style.display = "none";
+      document.getElementById("menuScreen").style.display = "none";
       document.getElementById("memoryGame").style.display = "block";
       const starsContainer = document.getElementById("starsContainer");
       starsContainer.innerHTML = "";
@@ -246,13 +221,44 @@
       });
     }
 
+    function checkGuess() {
+      const guess = document.getElementById("guess").value.toLowerCase();
+      const result = document.getElementById("result");
+      const hintMessage = document.getElementById("hintMessage");
+      const successSound = document.getElementById("successSound");
+      const failSound = document.getElementById("failSound");
+      hintMessage.textContent = "";
+
+      if (guess === secret) {
+        result.textContent = "You got it right! 🥰";
+        result.classList.add("celebrate");
+        successSound.volume = 1.0;
+        successSound.currentTime = 0;
+        successSound.play().catch((e) => console.warn("Sound playback failed:", e));
+        setTimeout(() => {
+          result.classList.remove("celebrate");
+          showMemoryGame();
+        }, 2000);
+      } else {
+        result.textContent = "Try again, my love 💫";
+        failSound.volume = 1.0;
+        failSound.currentTime = 0;
+        failSound.play().catch((e) => console.warn("Fail sound error:", e));
+      }
+    }
+
+    function showHint() {
+      document.getElementById("hintMessage").textContent = "Hint: It's something that comes from the heart ❤️";
+    }
+
     function revealMemory(text) {
       document.getElementById("memoryText").textContent = text;
     }
 
-    function backToGame() {
+    function backToMenu() {
+      document.getElementById("gameContent").style.display = "none";
       document.getElementById("memoryGame").style.display = "none";
-      document.getElementById("gameContent").style.display = "block";
+      document.getElementById("menuScreen").style.display = "block";
     }
   </script>
 </body>
