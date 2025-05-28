@@ -52,7 +52,10 @@
         url('Brown Collage Personal Scrapbook All About Me Poster.png') no-repeat center center fixed;
       background-size: cover;
       color: #ffb3d9;
-      display: none; /* hidden by default */
+    }
+
+    #gameContent {
+      display: none; /* hide game until password is entered */
     }
 
     h1 {
@@ -94,5 +97,88 @@
       margin-top: 20px;
       cursor: pointer;
       display: block;
-      margin-left: auto
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 5px;
+      border: none;
+      background-color: #ffb3d9;
+      color: #6b0036;
+      transition: background-color 0.3s ease;
+    }
 
+    #hintBtn:hover {
+      background-color: #ff99cc;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #ffb3d9;
+      text-shadow: 0 0 5px black;
+    }
+
+    #hintMessage {
+      margin-top: 15px;
+      color: #ffb3d9;
+      font-style: italic;
+      font-size: 18px;
+      min-height: 24px;
+      text-shadow: 0 0 5px black;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Password Screen -->
+  <div id="passwordOverlay">
+    <h2>Enter the secret password 💌</h2>
+    <input type="password" id="passwordInput" placeholder="Password..." />
+    <button onclick="checkPassword()">Enter</button>
+  </div>
+
+  <!-- Game Content -->
+  <div id="gameContent">
+    <h1>Guess the Secret Word!</h1>
+    <p>All the best luck from your love, Zaki :) ❤️</p>
+    <div>
+      <input id="guess" type="text" placeholder="Type your guess here" />
+      <button id="submitBtn" onclick="checkGuess()">Submit</button>
+    </div>
+    <button id="hintBtn" onclick="showHint()">Hint</button>
+    <p id="result"></p>
+    <p id="hintMessage"></p>
+  </div>
+
+  <script>
+    const secret = "love";
+    const password = "ghofrane";
+
+    function checkGuess() {
+      const guess = document.getElementById("guess").value.toLowerCase();
+      const result = document.getElementById("result");
+      const hintMessage = document.getElementById("hintMessage");
+      hintMessage.textContent = "";
+      if (guess === secret) {
+        result.textContent = "You got it right! 🥰";
+      } else {
+        result.textContent = "Try again, my love 💫";
+      }
+    }
+
+    function showHint() {
+      const hintMessage = document.getElementById("hintMessage");
+      hintMessage.textContent = "Hint: It's something that comes from the heart ❤️";
+    }
+
+    function checkPassword() {
+      const input = document.getElementById("passwordInput").value.toLowerCase();
+      if (input === password) {
+        document.getElementById("passwordOverlay").style.display = "none";
+        document.getElementById("gameContent").style.display = "block";
+      } else {
+        alert("Oops! That's not the right password 💔");
+      }
+    }
+  </script>
+</body>
+</html>
