@@ -213,6 +213,95 @@
   </audio>
 
   <script>
+    // List of guess questions, answers, and hints
+const questions = [
+  {
+    question: "What’s the first word I said when I met you?",
+    answer: "hi",
+    hints: ["It's a very simple greeting.", "Just two letters."]
+  },
+  {
+    question: "What’s my nickname for you?",
+    answer: "baby",
+    hints: ["It's what many lovers call each other.", "It starts with 'b'."]
+  },
+  {
+    question: "What color reminds me of you?",
+    answer: "pink",
+    hints: ["It's sweet and soft.", "Think of love letters."]
+  },
+  {
+    question: "Where do I want to take you one day?",
+    answer: "paris",
+    hints: ["The city of love.", "Eiffel Tower stands there."]
+  },
+  {
+    question: "Which movie genre do we both love?",
+    answer: "romance",
+    hints: ["It makes hearts flutter.", "Often includes love stories."]
+  },
+  // Add more questions here similarly...
+];
+
+let currentQuestionIndex = 0;
+let hintIndex = 0;
+
+function startGame() {
+  currentQuestionIndex = 0;
+  hintIndex = 0;
+  document.getElementById("mainMenu").style.display = "none";
+  document.getElementById("gameContent").style.display = "block";
+  document.getElementById("result").textContent = "";
+  document.getElementById("hintMessage").textContent = "";
+  document.getElementById("guess").value = "";
+  updateQuestion();
+}
+
+function updateQuestion() {
+  document.querySelector("#gameContent h1").textContent = questions[currentQuestionIndex].question;
+}
+
+function checkGuess() {
+  const guess = document.getElementById("guess").value.toLowerCase().trim();
+  const correctAnswer = questions[currentQuestionIndex].answer;
+  const result = document.getElementById("result");
+  const successSound = document.getElementById("successSound");
+  const failSound = document.getElementById("failSound");
+
+  if (guess === correctAnswer) {
+    showPopup("Correct! 🥰", true);
+    successSound.volume = 1.0;
+    successSound.currentTime = 0;
+    successSound.play();
+    setTimeout(() => {
+      currentQuestionIndex++;
+      hintIndex = 0;
+      if (currentQuestionIndex < questions.length) {
+        document.getElementById("guess").value = "";
+        updateQuestion();
+        document.getElementById("hintMessage").textContent = "";
+      } else {
+        showMemoryGame();
+      }
+    }, 2000);
+  } else {
+    showPopup("Try again, my love 💫", false);
+    failSound.volume = 1.0;
+    failSound.currentTime = 0;
+    failSound.play();
+  }
+}
+
+function showHint() {
+  const current = questions[currentQuestionIndex];
+  if (hintIndex < current.hints.length) {
+    document.getElementById("hintMessage").textContent = current.hints[hintIndex];
+    hintIndex++;
+  } else {
+    document.getElementById("hintMessage").textContent = "No more hints left 😘";
+  }
+}
+
     const password = "ghofrane";
     const secret = "love";
 
@@ -303,23 +392,5 @@
       document.getElementById("mainMenu").style.display = "flex";
     }
   </script>
-  <div id="popupMessage" style="
-  display: none;
-  position: fixed;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(255, 255, 255, 0.9);
-  padding: 20px 30px;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
-  font-size: 24px;
-  color: #6b0036;
-  text-align: center;
-  z-index: 10000;
-  animation: fadePopup 0.5s ease-in-out;
-">
-</div>
-
 </body>
 </html>
