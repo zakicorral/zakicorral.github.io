@@ -8,7 +8,7 @@
       height: 100%;
       margin: 0;
       font-family: sans-serif;
-      background-color: #000; /* fallback background */
+      background-color: #000;
       background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
         url('Brown Collage Personal Scrapbook All About Me Poster.png');
       background-position: center;
@@ -52,11 +52,13 @@
       text-shadow: 0 0 5px black;
     }
 
-    #gameContent, #memoryGame {
-      display: none;
-      padding: 30px;
-      max-width: 800px;
-      margin: auto;
+    #gameContent {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
 
     #guess {
@@ -128,9 +130,20 @@
       color: white;
     }
 
+    .celebrate {
+      animation: sparkle 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes sparkle {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4; }
+      to { text-shadow: 0 0 20px #ffb3d9, 0 0 40px #ff69b4; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Audio for correct answer -->
+  <audio id="successSound" src="success.mp3" preload="auto"></audio>
 
   <!-- Password Overlay -->
   <div id="passwordOverlay">
@@ -146,13 +159,12 @@
     <input id="guess" type="text" placeholder="Type your guess here" />
     <button id="submitBtn" onclick="checkGuess()">Submit</button>
     <button id="hintBtn" onclick="showHint()">Hint</button>
-    <button id="memoryGameBtn" onclick="showMemoryGame()">Play Memory Stars 🌟</button>
     <p id="result"></p>
     <p id="hintMessage"></p>
   </div>
 
   <!-- Memory Game -->
-  <div id="memoryGame">
+  <div id="memoryGame" style="display:none; padding: 30px; max-width: 800px; margin: auto;">
     <h1>Click a Star to Reveal a Memory ✨</h1>
     <div id="starsContainer"></div>
     <p id="memoryText"></p>
@@ -175,7 +187,7 @@
       const input = document.getElementById("passwordInput").value.toLowerCase();
       if (input === password) {
         document.getElementById("passwordOverlay").style.display = "none";
-        document.getElementById("gameContent").style.display = "block";
+        document.getElementById("gameContent").style.display = "flex";
       } else {
         alert("Oops! That's not the right password 💔");
       }
@@ -185,10 +197,21 @@
       const guess = document.getElementById("guess").value.toLowerCase();
       const result = document.getElementById("result");
       const hintMessage = document.getElementById("hintMessage");
+      const successSound = document.getElementById("successSound");
       hintMessage.textContent = "";
-      result.textContent = guess === secret
-        ? "You got it right! 🥰"
-        : "Try again, my love 💫";
+
+      if (guess === secret) {
+        result.textContent = "You got it right! 🥰";
+        result.classList.add("celebrate");
+        successSound.play();
+
+        setTimeout(() => {
+          result.classList.remove("celebrate");
+          showMemoryGame();
+        }, 2000); // Wait 2 seconds before switching
+      } else {
+        result.textContent = "Try again, my love 💫";
+      }
     }
 
     function showHint() {
@@ -198,6 +221,7 @@
     function showMemoryGame() {
       document.getElementById("gameContent").style.display = "none";
       document.getElementById("memoryGame").style.display = "block";
+
       const starsContainer = document.getElementById("starsContainer");
       starsContainer.innerHTML = "";
 
@@ -215,10 +239,8 @@
 
     function backToGame() {
       document.getElementById("memoryGame").style.display = "none";
-      document.getElementById("gameContent").style.display = "block";
+      document.getElementById("gameContent").style.display = "flex";
     }
   </script>
-
 </body>
 </html>
-
