@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Just for You 💖</title>
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
+  <meta charset="UTF-8" />
+  <title>Just for You 💖</title>
   <style>
     html, body {
       height: 100%;
@@ -25,166 +24,155 @@
       overflow: auto;
     }
 
-```
-#passwordOverlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
+    #passwordOverlay, #menuScreen, #gameContent, #memoryGame {
+      display: none;
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+    }
 
-#passwordOverlay input, #passwordOverlay button {
-  font-size: 18px;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 5px;
-  border: none;
-}
+    #passwordOverlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
 
-#passwordOverlay button {
-  background-color: #ff69b4;
-  color: white;
-  cursor: pointer;
-}
+    input, button {
+      font-size: 18px;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: none;
+    }
 
-h1 {
-  color: #ffb3d9;
-  text-shadow: 0 0 5px black;
-}
+    button {
+      cursor: pointer;
+    }
 
-#gameContent, #memoryGame {
-  display: none;
-  padding: 30px;
-  max-width: 800px;
-  margin: auto;
-  text-align: center;
-}
+    button.mainBtn {
+      background-color: #ffb3d9;
+      color: #6b0036;
+      margin: 15px;
+    }
 
-#guess {
-  font-size: 24px;
-  padding: 10px;
-  width: 300px;
-  border-radius: 5px;
-  border: 2px solid #d6336c;
-  outline: none;
-  margin-top: 20px;
-}
+    button.mainBtn:hover {
+      background-color: #ff99cc;
+    }
 
-#submitBtn, #hintBtn, #memoryGameBtn, #backBtn {
-  font-size: 18px;
-  padding: 10px 25px;
-  margin: 15px auto;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  display: block;
-}
+    #submitBtn, #backBtn {
+      background-color: #d6336c;
+      color: white;
+    }
 
-#submitBtn {
-  background-color: #d6336c;
-  color: white;
-}
+    #submitBtn:hover, #backBtn:hover {
+      background-color: #a8294e;
+    }
 
-#submitBtn:hover {
-  background-color: #a8294e;
-}
+    h1 {
+      color: #ffb3d9;
+      text-shadow: 0 0 5px black;
+    }
 
-#hintBtn, #memoryGameBtn {
-  background-color: #ffb3d9;
-  color: #6b0036;
-}
+    #guess {
+      font-size: 24px;
+      padding: 10px;
+      width: 300px;
+      border-radius: 5px;
+      border: 2px solid #d6336c;
+      outline: none;
+      margin-top: 20px;
+    }
 
-#hintBtn:hover, #memoryGameBtn:hover {
-  background-color: #ff99cc;
-}
+    #starsContainer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
 
-#result, #hintMessage, #memoryText {
-  margin-top: 20px;
-  font-size: 20px;
-  text-shadow: 0 0 5px black;
-  animation: pop 0.6s ease-in-out;
-}
+    #starsContainer button {
+      font-size: 40px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: gold;
+      transition: transform 0.2s;
+    }
 
-#starsContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
-}
+    #starsContainer button:hover {
+      transform: scale(1.2);
+    }
 
-#starsContainer button {
-  font-size: 50px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: gold;
-  transition: transform 0.2s;
-}
+    #result, #hintMessage, #memoryText {
+      margin-top: 20px;
+      font-size: 20px;
+      text-shadow: 0 0 5px black;
+    }
 
-#starsContainer button:hover {
-  transform: scale(1.2);
-}
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
 
-#backBtn {
-  background-color: #d6336c;
-  color: white;
-}
-
-@keyframes pop {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.3); }
-  100% { transform: scale(1); }
-}
-
-.celebrate {
-  animation: pop 0.6s ease-in-out;
-}
-```
-
+    .celebrate {
+      animation: pop 0.6s ease-in-out;
+    }
   </style>
 </head>
 <body>
 
   <!-- Password Overlay -->
-
   <div id="passwordOverlay">
     <h2>Enter the secret password 💌</h2>
     <input type="password" id="passwordInput" placeholder="Password..." />
     <button onclick="checkPassword()">Enter</button>
   </div>
 
-  <!-- Game Content -->
+  <!-- Menu Interface -->
+  <div id="menuScreen">
+    <h1>Welcome, Beautiful 🌸</h1>
+    <p>Choose your surprise:</p>
+    <button class="mainBtn" onclick="startGuessingGame()">Guess the Word Game</button>
+    <button class="mainBtn" onclick="showMemoryGame()">Memory Stars Game</button>
+    <button class="mainBtn">Love Calculator (Coming Soon)</button>
+    <button class="mainBtn">Playlist from Zaki (Coming Soon)</button>
+    <button class="mainBtn">Surprise Letter (Coming Soon)</button>
+    <button class="mainBtn">Photo Collage (Coming Soon)</button>
+    <button class="mainBtn">Mystery Box (Coming Soon)</button>
+  </div>
 
+  <!-- Game Content -->
   <div id="gameContent">
     <h1>Guess the Secret Word!</h1>
     <p>All the best luck from your love, Zaki :) ❤️</p>
     <input id="guess" type="text" placeholder="Type your guess here" />
     <button id="submitBtn" onclick="checkGuess()">Submit</button>
-    <button id="hintBtn" onclick="showHint()">Hint</button>
-    <button id="memoryGameBtn" onclick="showMemoryGame()">Play Memory Stars 🌟</button>
+    <button class="mainBtn" onclick="showHint()">Hint</button>
     <p id="result"></p>
     <p id="hintMessage"></p>
+    <button id="backBtn" onclick="backToMenu()">Back to Menu</button>
   </div>
 
   <!-- Memory Game -->
-
   <div id="memoryGame">
     <h1>Click a Star to Reveal a Memory ✨</h1>
     <div id="starsContainer"></div>
     <p id="memoryText"></p>
-    <button id="backBtn" onclick="backToGame()">Back to Game ❤️</button>
+    <button id="backBtn" onclick="backToMenu()">Back to Menu ❤️</button>
   </div>
 
   <!-- Sounds -->
-
   <audio id="successSound" preload="auto">
     <source src="323703__reitanna__funny-yay.wav" type="audio/wav" />
   </audio>
@@ -194,58 +182,84 @@ h1 {
 
   <script>
     const password = "ghofrane";
-
-    const words = [
-      { word: "love", hints: ["It's a four-letter word.", "It comes from the heart."] },
-      { word: "smile", hints: ["It's something you do when happy.", "It brightens your face."] },
-      { word: "hug", hints: ["A warm embrace.", "Often shared between loved ones."] },
-      { word: "kiss", hints: ["A sign of affection.", "Often on the lips."] },
-      { word: "trust", hints: ["Foundation of relationships.", "Built over time."] },
-      { word: "dream", hints: ["Occurs during sleep.", "Aspirations or goals."] },
-      { word: "hope", hints: ["A feeling of expectation.", "Desire for a certain thing to happen."] },
-      { word: "joy", hints: ["A feeling of great pleasure.", "Opposite of sorrow."] },
-      { word: "peace", hints: ["Absence of conflict.", "A state of tranquility."] },
-      { word: "heart", hints: ["Pumps blood.", "Symbol of love."] },
-      { word: "gift", hints: ["Given on special occasions.", "A present."] },
-      { word: "song", hints: ["A musical composition.", "Often sung."] },
-      { word: "dance", hints: ["Rhythmic movement.", "Often to music."] },
-      { word: "laugh", hints: ["Response to humor.", "A joyful sound."] },
-      { word: "date", hints: ["A romantic meeting.", "Also a fruit."] },
-      { word: "ring", hints: ["Circular jewelry.", "Often symbolizes commitment."] },
-      { word: "rose", hints: ["A type of flower.", "Often red and romantic."] },
-      { word: "poem", hints: ["A piece of writing.", "Often rhymes."] },
-      { word: "story", hints: ["A narrative.", "Can be fictional or real."] },
-      { word: "memory", hints: ["Recollection of past events.", "Stored in the mind."] }
-    ];
-
-    let currentWord = words[Math.floor(Math.random() * words.length)];
-    let hintIndex = 0;
+    const secret = "love";
 
     const memories = [
       "Our first smile together 😊",
       "That long chat under the stars 🌌",
       "When you held my hand and it felt like home 🤝",
       "That random moment you made me laugh until I cried 😂",
-      "The first time I realized I'm truly in love with you 💘",
-      "Our first date night 🌙",
-      "The surprise you planned for me 🎁",
-      "Walking together in the rain ☔",
-      "Cooking our favorite meal together 🍝",
-      "Watching the sunset hand in hand 🌅"
+      "The first time I realized I'm truly in love with you 💘"
     ];
 
     function checkPassword() {
       const input = document.getElementById("passwordInput").value.toLowerCase();
       if (input === password) {
         document.getElementById("passwordOverlay").style.display = "none";
-        document.getElementById("gameContent").style.display = "block";
+        document.getElementById("menuScreen").style.display = "block";
       } else {
         alert("Oops! That's not the right password 💔");
       }
     }
 
+    function startGuessingGame() {
+      document.getElementById("menuScreen").style.display = "none";
+      document.getElementById("gameContent").style.display = "block";
+    }
+
+    function showMemoryGame() {
+      document.getElementById("menuScreen").style.display = "none";
+      document.getElementById("memoryGame").style.display = "block";
+      const starsContainer = document.getElementById("starsContainer");
+      starsContainer.innerHTML = "";
+
+      memories.forEach((memory) => {
+        const star = document.createElement("button");
+        star.textContent = "⭐";
+        star.onclick = () => revealMemory(memory);
+        starsContainer.appendChild(star);
+      });
+    }
+
     function checkGuess() {
       const guess = document.getElementById("guess").value.toLowerCase();
       const result = document.getElementById("result");
-      const hintMessage = document.getElementById("
-::contentReference[oaicite:0]{index=0}
+      const hintMessage = document.getElementById("hintMessage");
+      const successSound = document.getElementById("successSound");
+      const failSound = document.getElementById("failSound");
+      hintMessage.textContent = "";
+
+      if (guess === secret) {
+        result.textContent = "You got it right! 🥰";
+        result.classList.add("celebrate");
+        successSound.volume = 1.0;
+        successSound.currentTime = 0;
+        successSound.play().catch((e) => console.warn("Sound playback failed:", e));
+        setTimeout(() => {
+          result.classList.remove("celebrate");
+          showMemoryGame();
+        }, 2000);
+      } else {
+        result.textContent = "Try again, my love 💫";
+        failSound.volume = 1.0;
+        failSound.currentTime = 0;
+        failSound.play().catch((e) => console.warn("Fail sound error:", e));
+      }
+    }
+
+    function showHint() {
+      document.getElementById("hintMessage").textContent = "Hint: It's something that comes from the heart ❤️";
+    }
+
+    function revealMemory(text) {
+      document.getElementById("memoryText").textContent = text;
+    }
+
+    function backToMenu() {
+      document.getElementById("gameContent").style.display = "none";
+      document.getElementById("memoryGame").style.display = "none";
+      document.getElementById("menuScreen").style.display = "block";
+    }
+  </script>
+</body>
+</html>
