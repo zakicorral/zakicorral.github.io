@@ -9,20 +9,57 @@
       margin: 0;
       font-family: sans-serif;
     }
+
+    /* Password overlay */
+    #passwordOverlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #passwordOverlay input {
+      font-size: 18px;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #passwordOverlay button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #ff69b4;
+      color: white;
+    }
+
     body {
       text-align: center;
       padding: 50px;
-      /* Background image with dark overlay */
       background: 
         linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
         url('Brown Collage Personal Scrapbook All About Me Poster.png') no-repeat center center fixed;
       background-size: cover;
       color: #ffb3d9;
+      display: none; /* hidden by default */
     }
+
     h1 {
-      color: #ffb3d9; /* lighter so it stands out */
+      color: #ffb3d9;
       text-shadow: 0 0 5px black;
     }
+
     #guess {
       font-size: 24px;
       padding: 10px;
@@ -33,6 +70,7 @@
       border: 2px solid #d6336c;
       outline: none;
     }
+
     #submitBtn {
       font-size: 20px;
       padding: 10px 25px;
@@ -45,72 +83,16 @@
       color: white;
       transition: background-color 0.3s ease;
     }
+
     #submitBtn:hover {
       background-color: #a8294e;
     }
+
     #hintBtn {
       font-size: 18px;
       padding: 10px 25px;
       margin-top: 20px;
       cursor: pointer;
       display: block;
-      margin-left: auto;
-      margin-right: auto;
-      border-radius: 5px;
-      border: none;
-      background-color: #ffb3d9;
-      color: #6b0036;
-      transition: background-color 0.3s ease;
-    }
-    #hintBtn:hover {
-      background-color: #ff99cc;
-    }
-    #result {
-      margin-top: 20px;
-      font-size: 20px;
-      color: #ffb3d9;
-      text-shadow: 0 0 5px black;
-    }
-    #hintMessage {
-      margin-top: 15px;
-      color: #ffb3d9;
-      font-style: italic;
-      font-size: 18px;
-      min-height: 24px;
-      text-shadow: 0 0 5px black;
-    }
-  </style>
-</head>
-<body>
-  <h1>Guess the Secret Word!</h1>
-  <p>All the best luck form your love , zaki :) ❤️</p>
-  <div>
-    <input id="guess" type="text" placeholder="Type your guess here" />
-    <button id="submitBtn" onclick="checkGuess()">Submit</button>
-  </div>
-  <button id="hintBtn" onclick="showHint()">Hint</button>
-  <p id="result"></p>
-  <p id="hintMessage"></p>
+      margin-left: auto
 
-  <script>
-    const secret = "love"; // you can change this to anything!
-
-    function checkGuess() {
-      const guess = document.getElementById("guess").value.toLowerCase();
-      const result = document.getElementById("result");
-      const hintMessage = document.getElementById("hintMessage");
-      hintMessage.textContent = ""; // clear hint when guessing
-      if (guess === secret) {
-        result.textContent = "You got it right! 🥰";
-      } else {
-        result.textContent = "Try again, my love 💫";
-      }
-    }
-
-    function showHint() {
-      const hintMessage = document.getElementById("hintMessage");
-      hintMessage.textContent = "Hint: It's something that comes from the heart ❤️";
-    }
-  </script>
-</body>
-</html>
