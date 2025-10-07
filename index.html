@@ -63,7 +63,7 @@
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  overflow-x: hidden;
+ overflow: hidden;
   backdrop-filter: blur(2px);
 }
 
@@ -199,65 +199,23 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(8px);
+  height: 100dvh; /* dynamic viewport height for mobile */
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 10000;
   transition: opacity 0.6s ease;
-}
-
-#passwordOverlay.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-#passwordOverlay h2 {
-  color: #fff;
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-#passwordInput {
-  padding: 10px 20px;
-  border-radius: 25px;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-  text-align: center;
-}
-
-#passwordButton {
-  margin-top: 15px;
-  background: #ff6b81;
-  border: none;
-  color: white;
-  font-size: 1rem;
-  padding: 10px 25px;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-#passwordButton:hover {
-  background: #ff4d6d;
-}
-
-#errorMessage {
-  color: #ffb3c1;
-  margin-top: 10px;
-  font-size: 0.9rem;
-  display: none;
+  overflow: hidden; /* prevent internal scrolling */
 }
 
   </style>
 </head>
 
 <body>
+  
   <!-- Password Overlay -->
 <div id="passwordOverlay">
   <h2>Enter the secret password 💞</h2>
@@ -341,13 +299,14 @@ const errorMessage = document.getElementById("errorMessage");
 
 passwordButton.addEventListener("click", () => {
   const entered = passwordInput.value.trim().toLowerCase();
-  if (entered === "ghofrane") {
-    overlay.classList.add("hidden");
-    setTimeout(() => overlay.remove(), 800); // remove after fade
-  } else {
-    errorMessage.style.display = "block";
-    passwordInput.value = "";
-  }
+ if (entered === "ghofrane") {
+  overlay.classList.add("hidden");
+  document.body.style.overflow = "auto"; // re-enable scrolling after unlock
+  setTimeout(() => overlay.remove(), 800); // remove after fade
+} else {
+  errorMessage.style.display = "block";
+  passwordInput.value = "";
+}
 });
 
 // Optional: press Enter to submit
