@@ -2,306 +2,162 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Just for You 💖</title>
-  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zaki ❤️ Ghofrane</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
   <style>
-    html, body {
-      height: 100%;
+    * {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #000;
-      background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
-        url('Brown Collage Personal Scrapbook All About Me Poster.png');
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-attachment: fixed;
-      color: #ffb3d9;
-      overflow: hidden;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    #passwordOverlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.9);
-      color: white;
+    body {
+      background: linear-gradient(120deg, #f7c6d9, #fff3cd, #a8d8ea);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      font-family: 'Poppins', sans-serif;
+      color: #333;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
-      text-align: center;
-    }
-
-    #passwordOverlay input, #passwordOverlay button {
-      font-size: 18px;
-      padding: 12px;
-      margin: 12px;
-      border-radius: 5px;
-      border: none;
-    }
-
-    #passwordOverlay input {
-      width: 250px;
-      text-align: center;
-    }
-
-    #passwordOverlay button {
-      background-color: #ff69b4;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    #passwordOverlay button:hover {
-      background-color: #ff1493;
-    }
-
-    #mainMenu {
-      display: none;
+      min-height: 100vh;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
       text-align: center;
-      animation: fadeIn 1s ease-in-out;
+      margin-top: 40px;
+      animation: fadeIn 1.5s ease;
     }
 
-    .menu-btn {
-      font-size: 20px;
-      padding: 12px 25px;
-      margin: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      background: #ffb3d9;
-      color: #6b0036;
-      transition: transform 0.3s;
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
 
-    .menu-btn:hover {
-      transform: scale(1.1);
-    }
-
-    #gameContent, #memoryGame {
-      display: none;
-      padding: 30px;
-      max-width: 800px;
-      margin: auto;
-      text-align: center;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    #guess {
-      font-size: 24px;
-      padding: 10px;
-      width: 300px;
-      border-radius: 5px;
-      border: 2px solid #d6336c;
-      outline: none;
-      margin-top: 20px;
-    }
-
-    #submitBtn, #hintBtn, #backBtn {
-      font-size: 18px;
-      padding: 10px 25px;
-      margin: 15px auto;
-      border-radius: 5px;
-      border: none;
-      cursor: pointer;
-    }
-
-    #submitBtn {
-      background-color: #d6336c;
-      color: white;
-    }
-
-    #submitBtn:hover {
-      background-color: #a8294e;
-    }
-
-    #hintBtn {
-      background-color: #ffb3d9;
-      color: #6b0036;
-    }
-
-    #hintBtn:hover {
-      background-color: #ff99cc;
-    }
-
-    #starsContainer {
-      position: relative;
-      height: 300px;
-      width: 100%;
-    }
-
-    .star {
-      font-size: 40px;
-      background: transparent;
-      border: none;
-      color: gold;
-      cursor: pointer;
-      position: absolute;
-      animation: floatStar 4s ease-in-out infinite;
-    }
-
-    @keyframes floatStar {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+    header p {
+      color: rgba(255, 255, 255, 0.9);
+      margin-top: 10px;
+      font-size: 1.2rem;
     }
 
     @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .celebrate {
-      animation: pop 0.6s ease-in-out;
+    .gallery {
+      margin: 60px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      width: 90%;
+      max-width: 1000px;
     }
 
-    @keyframes pop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.3); }
-      100% { transform: scale(1); }
+    .photo {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .photo.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .photo img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    footer {
+      text-align: center;
+      margin: 60px 0;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.8);
+      animation: fadeIn 2s ease;
+    }
+
+    /* Floating hearts animation */
+    .heart {
+      position: fixed;
+      bottom: -10px;
+      color: #ff6b81;
+      font-size: 1.5rem;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
     }
   </style>
 </head>
+
 <body>
-  <div id="passwordOverlay">
-    <h2>Enter the Secret Password 💌</h2>
-    <input type="password" id="passwordInput" placeholder="Password..." />
-    <button onclick="checkPassword()">Enter</button>
-  </div>
+  <header>
+    <h1>💞 Zaki & Ghofrane 💞</h1>
+    <p>Our Beautiful Memories Together ✨</p>
+  </header>
 
-  <div id="mainMenu">
-    <h1>Welcome My Love 💖</h1>
-    <button class="menu-btn" onclick="startGame()">💌 Guess the Word</button>
-    <button class="menu-btn" onclick="showMemoryGame()">🌟 Memory Stars</button>
-    <button class="menu-btn">🎵 Music Surprise</button>
-    <button class="menu-btn">📸 Hidden Gallery</button>
-    <button class="menu-btn">💬 AI Confession</button>
-    <button class="menu-btn">🎁 Secret Gift</button>
-  </div>
+  <section class="gallery">
+    <!-- 💕 Replace image links below with your own photos -->
+    <div class="photo"><img src="images/photo1.jpg" alt="Memory 1"></div>
+    <div class="photo"><img src="images/photo2.jpg" alt="Memory 2"></div>
+    <div class="photo"><img src="images/photo3.jpg" alt="Memory 3"></div>
+    <div class="photo"><img src="images/photo4.jpg" alt="Memory 4"></div>
+    <div class="photo"><img src="images/photo5.jpg" alt="Memory 5"></div>
+    <div class="photo"><img src="images/photo6.jpg" alt="Memory 6"></div>
+  </section>
 
-  <div id="gameContent">
-    <h1>Guess the Secret Word!</h1>
-    <input id="guess" type="text" placeholder="Type your guess here" />
-    <button id="submitBtn" onclick="checkGuess()">Submit</button>
-    <button id="hintBtn" onclick="showHint()">Hint</button>
-    <p id="result"></p>
-    <p id="hintMessage"></p>
-  </div>
-
-  <div id="memoryGame">
-    <h1>Click a Star to Reveal a Memory ✨</h1>
-    <div id="starsContainer"></div>
-    <p id="memoryText"></p>
-    <button id="backBtn" onclick="backToMenu()">Back to Menu ❤️</button>
-  </div>
-
-  <audio id="successSound">
-    <source src="323703__reitanna__funny-yay.wav" type="audio/wav" />
-  </audio>
-  <audio id="failSound">
-    <source src="dissapointed sounds.wav" type="audio/wav" />
-  </audio>
+  <footer>
+    <p>Made with ❤️ by Zaki for Ghofrane</p>
+  </footer>
 
   <script>
-    const password = "ghofrane";
-    const secret = "love";
+    // Fade-in on scroll
+    const photos = document.querySelectorAll('.photo');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    });
+    photos.forEach(photo => observer.observe(photo));
 
-    const memories = [
-      "Our first smile together 😊",
-      "That long chat under the stars 🌌",
-      "When you held my hand and it felt like home 🤝",
-      "That random moment you made me laugh until I cried 😂",
-      "The first time I realized I'm truly in love with you 💘",
-      "Our silly jokes only we understand 🤪",
-      "Looking at the moon and thinking of you 🌙",
-      "Our unforgettable walk together 🚶‍♀️🚶‍♂️",
-      "You calling me your soulmate 🥺",
-      "You being you. And that was more than enough ❤️"
-    ];
-
-    function checkPassword() {
-      const input = document.getElementById("passwordInput").value.toLowerCase();
-      if (input === password) {
-        document.getElementById("passwordOverlay").style.display = "none";
-        document.getElementById("mainMenu").style.display = "flex";
-      } else {
-        alert("Oops! That's not the right password 💔");
-      }
+    // Floating hearts
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = '💖';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (4 + Math.random() * 3) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
     }
-
-    function startGame() {
-      document.getElementById("mainMenu").style.display = "none";
-      document.getElementById("gameContent").style.display = "block";
-    }
-
-    function checkGuess() {
-      const guess = document.getElementById("guess").value.toLowerCase();
-      const result = document.getElementById("result");
-      const hintMessage = document.getElementById("hintMessage");
-      const successSound = document.getElementById("successSound");
-      const failSound = document.getElementById("failSound");
-      hintMessage.textContent = "";
-
-      if (guess === secret) {
-        result.textContent = "You got it right! 🥰";
-        result.classList.add("celebrate");
-
-        successSound.volume = 1.0;
-        successSound.currentTime = 0;
-        successSound.play();
-
-        setTimeout(() => {
-          result.classList.remove("celebrate");
-          showMemoryGame();
-        }, 2000);
-      } else {
-        result.textContent = "Try again, my love 💫";
-        failSound.volume = 1.0;
-        failSound.currentTime = 0;
-        failSound.play();
-      }
-    }
-
-    function showHint() {
-      document.getElementById("hintMessage").textContent = "Hint: It's something that comes from the heart ❤️";
-    }
-
-    function showMemoryGame() {
-      document.getElementById("gameContent").style.display = "none";
-      document.getElementById("mainMenu").style.display = "none";
-      document.getElementById("memoryGame").style.display = "block";
-      const starsContainer = document.getElementById("starsContainer");
-      starsContainer.innerHTML = "";
-
-      for (let i = 0; i < memories.length; i++) {
-        const star = document.createElement("button");
-        star.textContent = "⭐";
-        star.classList.add("star");
-        star.style.top = Math.random() * 250 + "px";
-        star.style.left = Math.random() * 90 + "%";
-        star.onclick = () => revealMemory(memories[i]);
-        starsContainer.appendChild(star);
-      }
-    }
-
-    function revealMemory(text) {
-      document.getElementById("memoryText").textContent = text;
-    }
-
-    function backToMenu() {
-      document.getElementById("memoryGame").style.display = "none";
-      document.getElementById("mainMenu").style.display = "flex";
-    }
+    setInterval(createHeart, 800);
   </script>
 </body>
 </html>
