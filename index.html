@@ -193,10 +193,79 @@
       0% { transform: translateY(0) scale(1); opacity: 1; }
       100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
     }
+    /* ===== PASSWORD OVERLAY ===== */
+#passwordOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  transition: opacity 0.6s ease;
+}
+
+#passwordOverlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#passwordOverlay h2 {
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+#passwordInput {
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  text-align: center;
+}
+
+#passwordButton {
+  margin-top: 15px;
+  background: #ff6b81;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  padding: 10px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#passwordButton:hover {
+  background: #ff4d6d;
+}
+
+#errorMessage {
+  color: #ffb3c1;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  display: none;
+}
+
   </style>
 </head>
 
 <body>
+  <!-- Password Overlay -->
+<div id="passwordOverlay">
+  <h2>Enter the secret password 💞</h2>
+  <input type="password" id="passwordInput" placeholder="Password..." />
+  <button id="passwordButton">Enter</button>
+  <p id="errorMessage">Wrong password! Try again ❤️</p>
+</div>
+
   <header>
     <h1>💞 Zaki & Ghofrane 💞</h1>
     <p>Our Most Precious Memories ✨</p>
@@ -264,6 +333,28 @@
       setTimeout(() => heart.remove(), 7000);
     }
     setInterval(createHeart, 800);
+    // ===== PASSWORD LOGIC =====
+const overlay = document.getElementById("passwordOverlay");
+const passwordInput = document.getElementById("passwordInput");
+const passwordButton = document.getElementById("passwordButton");
+const errorMessage = document.getElementById("errorMessage");
+
+passwordButton.addEventListener("click", () => {
+  const entered = passwordInput.value.trim().toLowerCase();
+  if (entered === "ghofrane") {
+    overlay.classList.add("hidden");
+    setTimeout(() => overlay.remove(), 800); // remove after fade
+  } else {
+    errorMessage.style.display = "block";
+    passwordInput.value = "";
+  }
+});
+
+// Optional: press Enter to submit
+passwordInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") passwordButton.click();
+});
+
   </script>
   <!-- Floating Zaki image -->
 <img src="Images/me-removebg-preview.png" alt="Zaki" class="floating-zaki">
